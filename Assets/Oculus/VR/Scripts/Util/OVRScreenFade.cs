@@ -44,6 +44,12 @@ public class OVRScreenFade : MonoBehaviour
 
     public float currentAlpha { get; private set; }
 
+	private void Awake()
+	{
+		//シーン開始時にフェードアウトされた状態から始める
+		SetFadeLevel(1);
+	}
+
 	/// <summary>
 	/// Automatically starts a fade in
 	/// </summary>
@@ -122,6 +128,11 @@ public class OVRScreenFade : MonoBehaviour
         StartCoroutine(Fade(0,1));
     }
 
+	public void FadeIn()
+	{
+		StartCoroutine(Fade(1, 0));
+	}
+
 
 	/// <summary>
 	/// Starts a fade in when a new level is loaded
@@ -133,9 +144,30 @@ public class OVRScreenFade : MonoBehaviour
 
 	void OnEnable()
 	{
-		if (!fadeOnStart)
+		/*if (!fadeOnStart)
 		{
 			SetFadeLevel(0);
+		}*/
+	}
+
+	public void FadeOn(float startAlpha = 0, float endAlpha = 1, float delay = 0)
+	{
+		StartCoroutine(Fade(startAlpha, endAlpha, delay));
+	}
+
+	IEnumerator Fade(float startAlpha, float endAlpha, float delay)
+	{
+		Debug.Log("fade on");
+		float elapsedTime = 0.0f;
+
+		yield return new WaitForSeconds(delay);
+
+		while (elapsedTime < fadeTime)
+		{
+			elapsedTime += Time.deltaTime;
+			currentAlpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsedTime / fadeTime));
+			SetMaterialAlpha();
+			yield return new WaitForEndOfFrame();
 		}
 	}
 

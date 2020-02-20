@@ -1876,7 +1876,8 @@ public class OVRManager : MonoBehaviour
 		if (!staticMixedRealityCaptureInitialized)
 		{
 			staticMrcSettings = ScriptableObject.CreateInstance<OVRMixedRealityCaptureSettings>();
-			staticMrcSettings.ReadFrom(OVRManager.instance);
+            OVRManager.instance.useRecommendedMSAALevel = false;
+            staticMrcSettings.ReadFrom(OVRManager.instance);
 
 #if OVR_ANDROID_MRC
 			bool mediaInitialized = OVRPlugin.Media.Initialize();
