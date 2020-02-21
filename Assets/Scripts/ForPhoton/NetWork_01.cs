@@ -61,8 +61,8 @@ namespace Com.MyCompany.MyGame
             //LoadBalancingClient loadBalancingClient = new LoadBalancingClient(ExitGames.Client.Photon.ConnectionProtocol.Udp);
             //loadBalancingClient.AddCallbackTarget(this);
             //loadBalancingClient.Connect();
-            PhotonNetwork.GameVersion = "1.0";
-            PhotonNetwork.ConnectUsingSettings();
+            //PhotonNetwork.GameVersion = "1.0"; qq
+            //PhotonNetwork.ConnectUsingSettings();
         }
 
         private void OnConnectedToServer()
